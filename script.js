@@ -86,7 +86,8 @@ document.getElementById('formulario').addEventListener('submit', async (event) =
 
 1. Evitar guardar contraseñas en texto plano
 Aunque ya lo mencionamos, vale la pena insistir:
-En aplicaciones reales, jamás deberías guardar contraseñas directamente en Firestore. Firebase ya te ofrece Firebase Authentication, un sistema de autenticación seguro que maneja todo esto por vos (hash, almacenamiento, verificación de correos, login con Google, etc.).
+En aplicaciones reales, jamás deberías guardar contraseñas directamente en Firestore. Firebase ya te ofrece Firebase Authentication, 
+un sistema de autenticación seguro que maneja todo esto por vos (hash, almacenamiento, verificación de correos, login con Google, etc.).
 
 🔐 ¿Cómo mejorar esto?
 
@@ -97,7 +98,8 @@ Usar firebase.auth().createUserWithEmailAndPassword(email, password).
 Puedo ayudarte con eso cuando quieras 😉
 
 2. Separar validaciones en funciones
-Actualmente todas las validaciones están dentro del mismo submit. Podrías moverlas a funciones individuales para que el código sea más limpio y fácil de mantener.
+Actualmente todas las validaciones están dentro del mismo submit. Podrías moverlas a funciones individuales para que el código sea más
+ limpio y fácil de mantener.
 
 Por ejemplo:
 
@@ -128,6 +130,7 @@ Desde qué país/IP (usando servicios externos)
 O agregar otros campos como edad, preferencias, etc.
 
 5. Controlar mejor los errores
-Ahora solo hacés console.error(). Podés guardar los errores también en Firestore (por ejemplo, en una colección llamada errores) para analizarlos después.
+Ahora solo hacés console.error(). Podés guardar los errores también en Firestore (por ejemplo, en una colección llamada errores)
+ para analizarlos después.
 
 */
