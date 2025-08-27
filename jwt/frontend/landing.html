@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Bienvenido a la página de aterrizaje</h1>
+    <p id="welcome"></p>
+    <button id="logoutBtn">Cerrar sesión</button>
+
+    <script type="module">
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            // Si no hay token, volver al login
+            window.location.href = 'index.html';
+        } else {
+            // Consultar ruta protegida /profile en backend
+            fetch('http://localhost:3000/profile', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Token inválido o expirado');
+                return res.json();
+            })
+            .then(data => {
+                document.getElementById('welcome').textContent = `Hola, ${data.user.email}`;
+            })
+            .catch(err => {
+                alert('No se pudo validar el usuario. Vuelve a iniciar sesión.');
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            });
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
