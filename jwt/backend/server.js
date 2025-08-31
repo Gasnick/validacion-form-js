@@ -31,6 +31,26 @@ app.post('/login', async (req, res) => {
     res.json({ message: 'Login exitoso', token });
 });
 
+// Ruta protegida
+app.get('/profile', (req, res) => {
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) return res.status(401).json({ message: 'Token requerido' });
+
+    const token = authHeader.split(' ')[1]; // "Bearer <token>"
+    if (!token) return res.status(401).json({ message: 'Token no proporcionado' });
+
+    jwt.verify(token, SECRET_KEY, (err, decoded) => {
+        if (err) return res.status(401).json({ message: 'Token inválido o expirado' });
+
+        // Buscar usuario en memoria por el email del token
+        const user = users.find(u => u.email === decoded.email);
+        if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
+
+        res.json({ user: { name: user.name, email: user.email } });
+    });
+});
+
+
 // Ruta temporal: ver todos los usuarios (solo para desarrollo)
 app.get('/users', (req, res) => {
     res.json(users);

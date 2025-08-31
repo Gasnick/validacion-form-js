@@ -24,8 +24,25 @@ toggleLink.addEventListener('click', () => {
     isLogin = !isLogin;
     formTitle.textContent = isLogin ? 'Login de Usuario' : 'Registro de Usuario';
     submitBtn.textContent = isLogin ? 'Ingresar' : 'Registrar';
-    document.getElementById('name').parentElement.style.display = isLogin ? 'none' : 'block';
+
+    const nameField = document.getElementById('name');
+    const nameContainer = nameField.parentElement;
+
+    if (isLogin) {
+        // Modo login: ocultamos el campo de nombre y quitamos required
+        nameContainer.style.display = 'none';
+        nameField.removeAttribute('required');
+        // Cambiar el enlace para ir a registro
+        toggleLink.textContent = '¿No tienes cuenta? Regístrate';
+    } else {
+        // Modo registro: mostramos el campo de nombre y lo hacemos obligatorio
+        nameContainer.style.display = 'block';
+        nameField.setAttribute('required', true);
+        // Cambiar el enlace para ir a login
+        toggleLink.textContent = '¿Ya tienes cuenta? Inicia sesión';
+    }
 });
+
 
 // Validaciones
 function validarCampos() {
@@ -86,9 +103,9 @@ formulario.addEventListener('submit', async (e) => {
         const result = await response.json();
 
         if (response.ok) {
-            localStorage.setItem('token', result.token);
-
+            
             if (isLogin) {
+                localStorage.setItem('token', result.token);
                 alert('Login exitoso');
                 // Redirigir a landing
                 window.location.href = 'landing.html';
@@ -108,4 +125,3 @@ formulario.addEventListener('submit', async (e) => {
         console.error(err);
     }
 });
-

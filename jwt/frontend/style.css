@@ -1,32 +1,148 @@
+/* Variables de color */
+:root {
+    --primary: #4a90e2;
+    --secondary: #ffffff;
+    --error: #e74c3c;
+    --bg: #f4f6f8;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --border-radius: 10px;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Contenedor centrado */
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* Tarjeta del formulario */
+.form-card {
+    background-color: var(--secondary);
+    padding: 30px 25px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Título */
+.form-card h2 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+/* Form groups */
 .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="password"] {
-    padding: 5px;
-    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+}
+
+label {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 12px 15px;
+    border-radius: var(--border-radius);
     border: 1px solid #ccc;
-  }
-  
-  button[type="submit"] {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: #fff;
+    outline: none;
+    font-size: 14px;
+    transition: border 0.3s;
+}
+
+input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 5px var(--primary);
+}
+
+/* Botón */
+button[type="submit"] {
+    padding: 12px;
+    background-color: var(--primary);
+    color: var(--secondary);
+    font-size: 16px;
+    font-weight: 600;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     cursor: pointer;
-  }
-  
-  .error-message {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-  }
-  
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #357ab8;
+}
+
+/* Errores */
+.error-message {
+    color: var(--error);
+    font-size: 13px;
+    min-height: 18px;
+}
+
+/* Toggle contraseña */
+.password-group {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 38px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 18px;
+    transition: transform 0.2s;
+}
+
+.toggle-password:hover {
+    transform: scale(1.2);
+}
+
+/* Texto alternar registro/login */
+.toggle-text {
+    text-align: center;
+    font-size: 14px;
+}
+
+.toggle-text a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.toggle-text a:hover {
+    color: #357ab8;
+}
+
+/* Responsivo */
+@media (max-width: 450px) {
+    .form-card {
+        padding: 25px 20px;
+    }
+}
